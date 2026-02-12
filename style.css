@@ -1,68 +1,99 @@
-.axle-visual-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 15px;
-    margin-top: 20px;
+.analysis-container {
+    max-width: 700px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.truck-chassis {
-    width: 120px;
-    height: 200px;
-    background: #334155;
-    border-radius: 10px;
+.truck-blueprint {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 20px 0;
     position: relative;
-    border: 2px solid #475569;
 }
 
-.wheel {
-    width: 30px;
-    height: 50px;
-    background: #64748b;
-    border-radius: 4px;
+.axle-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.axle-line {
+    flex: 1;
+    height: 4px;
+    background: #cbd5e1;
+    margin: 0 15px;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.axle-line small {
+    display: block;
     position: absolute;
-    transition: background 0.3s, box-shadow 0.3s;
+    top: -25px;
+    width: 100%;
+    color: #64748b;
 }
 
-.top-left { top: 20px; left: -15px; }
-.top-right { top: 20px; right: -15px; }
-.bottom-left { bottom: 20px; left: -15px; }
-.bottom-right { bottom: 20px; right: -15px; }
-
-/* Wenn ein Rad überlastet ist */
-.wheel.danger {
-    background: #ef4444;
-    box-shadow: 0 0 15px #ef4444;
+.wheel-input {
+    width: 120px;
+    text-align: center;
 }
 
-.center-point {
-    width: 12px;
-    height: 12px;
-    background: #fbbf24;
+.wheel-input input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #3b82f6;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chassis-bridge {
+    height: 120px;
+    width: 40px;
+    background: #e2e8f0;
+    margin: 10px auto;
+    position: relative;
+    border-radius: 4px;
+}
+
+.center-of-gravity {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #fbbf24, #d97706);
+    border: 2px solid #fff;
     border-radius: 50%;
     position: absolute;
-    top: 50%;
     left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px #fbbf24;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
+    transition: all 0.3s ease;
 }
 
-.weight-inputs {
+.results-table {
+    display: grid;
+    gap: 10px;
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.res-row {
     display: flex;
-    flex-direction: column;
-    gap: 40px;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.input-row { display: flex; gap: 10px; }
-
-.input-row input {
-    width: 100px;
-    text-align: center;
-    background: #0f172a;
-    border: 1px solid #3b82f6;
-    color: #3b82f6;
-    font-weight: bold;
+.limit-exceeded {
+    background: #fee2e2 !important;
+    border-color: #ef4444 !important;
 }
