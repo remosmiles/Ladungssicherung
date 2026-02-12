@@ -1,0 +1,68 @@
+.axle-visual-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.truck-chassis {
+    width: 120px;
+    height: 200px;
+    background: #334155;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #475569;
+}
+
+.wheel {
+    width: 30px;
+    height: 50px;
+    background: #64748b;
+    border-radius: 4px;
+    position: absolute;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.top-left { top: 20px; left: -15px; }
+.top-right { top: 20px; right: -15px; }
+.bottom-left { bottom: 20px; left: -15px; }
+.bottom-right { bottom: 20px; right: -15px; }
+
+/* Wenn ein Rad überlastet ist */
+.wheel.danger {
+    background: #ef4444;
+    box-shadow: 0 0 15px #ef4444;
+}
+
+.center-point {
+    width: 12px;
+    height: 12px;
+    background: #fbbf24;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #fbbf24;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.weight-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.input-row { display: flex; gap: 10px; }
+
+.input-row input {
+    width: 100px;
+    text-align: center;
+    background: #0f172a;
+    border: 1px solid #3b82f6;
+    color: #3b82f6;
+    font-weight: bold;
+}
