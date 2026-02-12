@@ -1,35 +1,57 @@
-<div class="card data-section">
-    <div class="card-header">
-        <h3>⚖️ Radlast-Analyse (4 Waagtische)</h3>
-        <span class="badge-tech">Präzisionsmodus</span>
+<div class="card analysis-container">
+    <div class="header-flex">
+        <h2>⚖️ Achslast-Protokoll (4 Waagtische)</h2>
+        <div class="limit-status" id="global-status">BEREIT</div>
     </div>
 
-    <div class="axle-visual-container">
-        <div class="truck-chassis">
-            <div class="wheel top-left" id="wheel-vl"></div>
-            <div class="wheel top-right" id="wheel-vr"></div>
-            <div class="wheel bottom-left" id="wheel-hl"></div>
-            <div class="wheel bottom-right" id="wheel-hr"></div>
-            <div class="center-point" id="cg-point"></div>
+    <div class="truck-blueprint">
+        <div class="axle-block front">
+            <div class="wheel-input left">
+                <label>VL (kg)</label>
+                <input type="number" id="v-links" placeholder="0" oninput="calculateTruck()">
+            </div>
+            <div class="axle-line">
+                <span id="axle-1-total">0</span> kg
+                <small>Achse 1</small>
+            </div>
+            <div class="wheel-input right">
+                <label>VR (kg)</label>
+                <input type="number" id="v-rechts" placeholder="0" oninput="calculateTruck()">
+            </div>
         </div>
 
-        <div class="weight-inputs">
-            <div class="input-row">
-                <input type="number" id="val-vl" placeholder="VL (kg)" oninput="updateTruckAnalysis()">
-                <input type="number" id="val-vr" placeholder="VR (kg)" oninput="updateTruckAnalysis()">
+        <div class="chassis-bridge">
+            <div id="cog" class="center-of-gravity"></div>
+        </div>
+
+        <div class="axle-block rear">
+            <div class="wheel-input left">
+                <label>HL (kg)</label>
+                <input type="number" id="h-links" placeholder="0" oninput="calculateTruck()">
             </div>
-            <div class="input-row">
-                <input type="number" id="val-hl" placeholder="HL (kg)" oninput="updateTruckAnalysis()">
-                <input type="number" id="val-hr" placeholder="HR (kg)" oninput="updateTruckAnalysis()">
+            <div class="axle-line">
+                <span id="axle-2-total">0</span> kg
+                <small>Achse 2</small>
+            </div>
+            <div class="wheel-input right">
+                <label>HR (kg)</label>
+                <input type="number" id="h-rechts" placeholder="0" oninput="calculateTruck()">
             </div>
         </div>
     </div>
 
-    <div class="analysis-results">
-        <div class="res-item">Gesamtgewicht: <span id="total-weight">0</span> kg</div>
-        <div class="res-item">Differenz L/R: <span id="lr-diff">0</span>%</div>
-        <div id="warning-msg" class="warning-banner" style="display: none;">
-            ⚠️ Achtung: Schwerpunkt kritisch!
+    <div class="results-table">
+        <div class="res-row">
+            <span>Gesamtgewicht:</span>
+            <strong id="total-weight">0 kg</strong>
+        </div>
+        <div class="res-row">
+            <span>Verteilung Links / Rechts:</span>
+            <span id="lr-distribution">50% / 50%</span>
+        </div>
+        <div class="res-row" id="diff-warning">
+            <span>Differenz L/R:</span>
+            <strong id="lr-diff">0 kg</strong>
         </div>
     </div>
 </div>
