@@ -1,57 +1,76 @@
-<div class="card analysis-container">
-    <div class="header-flex">
-        <h2>⚖️ Achslast-Protokoll (4 Waagtische)</h2>
-        <div class="limit-status" id="global-status">BEREIT</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKO1 | Advanced Axle Control</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <div class="badge">SYSTEM AKTIV</div>
+            <h1>ACHSLAST<span>ANALYSE</span></h1>
+            <p>PRÄZISIONSMESSUNG PKO1</p>
+        </header>
+
+        <main class="measurement-space">
+            <div class="axle-group">
+                <div class="input-card left" data-label="Vorne Links">
+                    <input type="number" id="vl" placeholder="0" class="weight-input">
+                    <span>kg</span>
+                </div>
+                
+                <div class="axle-visual">
+                    <div class="axle-line"></div>
+                    <div class="axle-sum"><span id="sum-v">0</span> kg</div>
+                </div>
+
+                <div class="input-card right" data-label="Vorne Rechts">
+                    <input type="number" id="vr" placeholder="0" class="weight-input">
+                    <span>kg</span>
+                </div>
+            </div>
+
+            <div class="vehicle-body">
+                <div id="target-point" class="cog-dot"></div>
+                <div class="center-axis"></div>
+            </div>
+
+            <div class="axle-group">
+                <div class="input-card left" data-label="Hinten Links">
+                    <input type="number" id="hl" placeholder="0" class="weight-input">
+                    <span>kg</span>
+                </div>
+                
+                <div class="axle-visual">
+                    <div class="axle-line"></div>
+                    <div class="axle-sum"><span id="sum-h">0</span> kg</div>
+                </div>
+
+                <div class="input-card right" data-label="Hinten Rechts">
+                    <input type="number" id="hr" placeholder="0" class="weight-input">
+                    <span>kg</span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="live-dashboard">
+            <div class="data-tile">
+                <label>Gesamtmasse</label>
+                <div class="value" id="total-weight">0 kg</div>
+            </div>
+            <div class="data-tile">
+                <label>Differenz L/R</label>
+                <div class="value" id="lr-diff">0 kg</div>
+            </div>
+            <div class="data-tile" id="balance-tile">
+                <label>Status</label>
+                <div class="value" id="status-text">WAITING</div>
+            </div>
+        </footer>
     </div>
-
-    <div class="truck-blueprint">
-        <div class="axle-block front">
-            <div class="wheel-input left">
-                <label>VL (kg)</label>
-                <input type="number" id="v-links" placeholder="0" oninput="calculateTruck()">
-            </div>
-            <div class="axle-line">
-                <span id="axle-1-total">0</span> kg
-                <small>Achse 1</small>
-            </div>
-            <div class="wheel-input right">
-                <label>VR (kg)</label>
-                <input type="number" id="v-rechts" placeholder="0" oninput="calculateTruck()">
-            </div>
-        </div>
-
-        <div class="chassis-bridge">
-            <div id="cog" class="center-of-gravity"></div>
-        </div>
-
-        <div class="axle-block rear">
-            <div class="wheel-input left">
-                <label>HL (kg)</label>
-                <input type="number" id="h-links" placeholder="0" oninput="calculateTruck()">
-            </div>
-            <div class="axle-line">
-                <span id="axle-2-total">0</span> kg
-                <small>Achse 2</small>
-            </div>
-            <div class="wheel-input right">
-                <label>HR (kg)</label>
-                <input type="number" id="h-rechts" placeholder="0" oninput="calculateTruck()">
-            </div>
-        </div>
-    </div>
-
-    <div class="results-table">
-        <div class="res-row">
-            <span>Gesamtgewicht:</span>
-            <strong id="total-weight">0 kg</strong>
-        </div>
-        <div class="res-row">
-            <span>Verteilung Links / Rechts:</span>
-            <span id="lr-distribution">50% / 50%</span>
-        </div>
-        <div class="res-row" id="diff-warning">
-            <span>Differenz L/R:</span>
-            <strong id="lr-diff">0 kg</strong>
-        </div>
-    </div>
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
