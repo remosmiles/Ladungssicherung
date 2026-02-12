@@ -1,99 +1,108 @@
-.analysis-container {
-    max-width: 700px;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+:root {
+    --primary: #00d2ff;
+    --danger: #ff4b2b;
+    --success: #00ff87;
+    --glass: rgba(255, 255, 255, 0.05);
 }
 
-.truck-blueprint {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 40px 20px;
-    margin: 20px 0;
-    position: relative;
+body {
+    background: radial-gradient(circle at center, #1a2a6c, #b21f1f, #fdbb2d); /* Subtiler Dark Gradient */
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
 }
 
-.axle-block {
+.glass-container {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+header { text-align: center; margin-bottom: 40px; }
+h1 { font-weight: 900; letter-spacing: -1px; margin: 10px 0; }
+h1 span { color: var(--primary); }
+
+.measurement-space { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+
+.axle-group {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     align-items: center;
 }
 
-.axle-line {
-    flex: 1;
-    height: 4px;
-    background: #cbd5e1;
-    margin: 0 15px;
-    position: relative;
-    text-align: center;
-    font-weight: bold;
-    color: #1e293b;
-}
-
-.axle-line small {
-    display: block;
-    position: absolute;
-    top: -25px;
-    width: 100%;
-    color: #64748b;
-}
-
-.wheel-input {
+.input-card {
+    background: var(--glass);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
     width: 120px;
     text-align: center;
+    position: relative;
 }
 
-.wheel-input input {
+.input-card::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    font-size: 10px; padding: 2px 8px;
+    border-radius: 10px; color: #000; font-weight: bold;
+}
+
+.weight-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
     width: 100%;
-    padding: 12px;
-    border: 2px solid #3b82f6;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    outline: none;
     text-align: center;
 }
 
-.chassis-bridge {
-    height: 120px;
-    width: 40px;
-    background: #e2e8f0;
-    margin: 10px auto;
+.axle-visual { flex: 1; text-align: center; position: relative; }
+.axle-line { height: 2px; background: rgba(255,255,255,0.2); margin: 0 10px; }
+.axle-sum { font-size: 0.9rem; font-weight: bold; margin-top: 5px; color: var(--primary); }
+
+.vehicle-body {
+    height: 150px; width: 80px;
+    background: var(--glass);
+    border-radius: 15px;
+    border: 1px dashed rgba(255,255,255,0.2);
     position: relative;
-    border-radius: 4px;
 }
 
-.center-of-gravity {
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, #fbbf24, #d97706);
-    border: 2px solid #fff;
+.cog-dot {
+    width: 20px; height: 20px;
+    background: var(--primary);
     border-radius: 50%;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
-    transition: all 0.3s ease;
+    box-shadow: 0 0 20px var(--primary);
+    transition: all 0.4s ease;
 }
 
-.results-table {
-    display: grid;
-    gap: 10px;
-    background: #f1f5f9;
-    padding: 15px;
-    border-radius: 12px;
+.live-dashboard {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px; margin-top: 40px;
 }
 
-.res-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #e2e8f0;
+.data-tile {
+    background: rgba(255,255,255,0.03);
+    padding: 15px; border-radius: 15px; text-align: center;
 }
 
-.limit-exceeded {
-    background: #fee2e2 !important;
-    border-color: #ef4444 !important;
-}
+.data-tile label { font-size: 0.7rem; text-transform: uppercase; opacity: 0.6; }
+.data-tile .value { font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
