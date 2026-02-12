@@ -1,54 +1,55 @@
-// Kleine Datenbank für häufige UN-Nummern
-const adrDB = {
-    "1202": { name: "DIESELKRAFTSTOFF / HEIZÖL", class: "3", cat: 3 }, // Faktor 1
-    "1203": { name: "BENZIN / OTTOKRAFTSTOFF", class: "3", cat: 2 },   // Faktor 3
-    "1965": { name: "FLÜSSIGGAS (LPG)", class: "2.1", cat: 2 },       // Faktor 3
-    "3082": { name: "UMWELTGEFÄHRDEND (FLÜSSIG)", class: "9", cat: 3 },// Faktor 1
-    "1072": { name: "SAUERSTOFF, KOMPRIMIERT", class: "2.2", cat: 3 } // Faktor 1
+const adrData = {
+    "1203": { name: "BENZIN", class: "3", cat: 2, tunnel: "D/E", desc: "Leichtentzündlich" },
+    "1202": { name: "DIESEL / HEIZÖL", class: "3", cat: 3, tunnel: "E", desc: "Umweltgefährdend" },
+    "1965": { name: "FLÜSSIGGAS", class: "2.1", cat: 2, tunnel: "B/D", desc: "Explosionsgefahr" },
+    "3082": { name: "UMWELTGEF. STOFFE", class: "9", cat: 3, tunnel: "E", desc: "Geringes Risiko" }
 };
 
-document.getElementById('un-input').addEventListener('input', checkADR);
-document.getElementById('adr-menge').addEventListener('input', checkADR);
+document.getElementById('check-btn').addEventListener('click', () => {
+    const un = document.getElementById('un-num').value;
+    const weight = parseFloat(document.getElementById('un-weight').value) || 0;
+    const resArea = document.getElementById('adr-results');
 
-function checkADR() {
-    const un = document.getElementById('un-input').value;
-    const menge = parseFloat(document.getElementById('adr-menge').value) || 0;
-    const display = document.getElementById('adr-result');
-    
-    if (adrDB[un]) {
-        display.style.display = "block";
-        const data = adrDB[un];
+    if (adrData[un]) {
+        resArea.classList.remove('hidden');
+        const data = adrData[un];
         
-        // Punkte berechnen (ADR 1.1.3.6)
-        let faktor = 1;
-        if (data.cat === 1) faktor = 50;
-        if (data.cat === 2) faktor = 3;
-        if (data.cat === 3) faktor = 1;
+        // 1000-Punkte Berechnung
+        const factor = data.cat === 2 ? 3 : 1;
+        const pts = weight * factor;
+
+        document.getElementById('res-name').innerText = `UN ${un} ${data.name}`;
+        document.getElementById('res-class').innerText = `Klasse ${data.class}`;
+        document.getElementById('pts-val').innerText = pts;
         
-        const punkte = menge * faktor;
-        
-        document.getElementById('adr-un-name').innerText = `UN ${un} ${data.name}`;
-        document.getElementById('adr-class').innerText = `KLASSE ${data.class}`;
-        document.getElementById('calc-points').innerText = punkte;
-        
-        const fill = document.getElementById('points-fill');
-        fill.style.width = Math.min((punkte / 1000) * 100, 100) + "%";
-        
-        // Bestimmungen generieren
-        let html = `<div class="adr-item">✅ Feuerlöscher: Mind. 2kg Pulver erforderlich.</div>`;
-        html += `<div class="adr-item">✅ Beförderungspapier: UN-Nummer & ADR-Details Pflicht.</div>`;
-        
-        if (punkte > 1000) {
-            html += `<div class="adr-item danger-alert">🚨 ÜBER 1000 PUNKTE: Orangene Warntafeln & ADR-Bescheinigung (Fahrer) Pflicht!</div>`;
-            html += `<div class="adr-item danger-alert">🚨 Komplette Schutzausrüstung (S-Ausrüstung) nötig.</div>`;
-            fill.style.background = "#ff0000";
+        const bar = document.getElementById('pts-bar');
+        bar.style.width = Math.min(pts/10, 100) + "%";
+        bar.style.backgroundColor = pts > 1000 ? "#cf1322" : "#0071e3";
+
+        // Tunnel Logik Schweiz (Beispielhaft)
+        let tunnelHTML = "";
+        if (pts > 1000) {
+            tunnelHTML += `<span class="tunnel-tag tunnel-no">Gotthard (E): Verboten</span>`;
+            tunnelHTML += `<span class="tunnel-tag tunnel-no">San Bernardino (E): Verboten</span>`;
+            tunnelHTML += `<span class="tunnel-tag tunnel-ok">Kirchenwald (A): Erlaubt</span>`;
         } else {
-            html += `<div class="adr-item">ℹ️ Freigestellt ("Handwerkerregelung" möglich). Keine Warntafeln nötig.</div>`;
-            fill.style.background = "#ff9800";
+            tunnelHTML += `<span class="tunnel-tag tunnel-ok">Alle Schweizer Tunnel erlaubt (Freigrenze)</span>`;
         }
-        
-        document.getElementById('adr-warnings').innerHTML = html;
+        document.getElementById('tunnel-info').innerHTML = tunnelHTML;
+
+        // SDR Bestimmungen
+        let rules = `<li>Ausrüstung gemäss SDR Kap. 8.1</li>`;
+        if (pts > 1000) {
+            rules += `<li><strong>Orangene Tafeln öffnen</strong></li>`;
+            rules += `<li>ADR-Schulungsbescheinigung Pflicht</li>`;
+            rules += `<li>Schutzausrüstung (Gefahrgutkoffer) komplett</li>`;
+        } else {
+            rules += `<li>Freigestellt nach 1.1.3.6 (Punkte < 1000)</li>`;
+            rules += `<li>Feuerlöscher (mind. 2kg)</li>`;
+        }
+        document.getElementById('rules-list').innerHTML = rules;
+
     } else {
-        display.style.display = "none";
+        alert("UN-Nummer nicht in Datenbank gefunden.");
     }
-}
+});
