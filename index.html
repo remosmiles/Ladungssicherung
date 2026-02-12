@@ -1,0 +1,25 @@
+<div class="card data-section">
+    <h3>📦 Ladungssicherung & Gewichtsverteilung</h3>
+    <div class="lasi-grid">
+        <div class="form-section">
+            <label>Ladungsgewicht (kg)</label>
+            <input type="number" id="lasi-gewicht" placeholder="z.B. 5000" oninput="calculateLasi()">
+        </div>
+        <div class="form-section">
+            <label>Reibbeiwert (µ)</label>
+            <select id="lasi-reib" onchange="calculateLasi()">
+                <option value="0.3">0.3 (Holz auf Metall)</option>
+                <option value="0.6">0.6 (Antirutschmatte)</option>
+                <option value="0.2">0.2 (Nass / Fettig)</option>
+            </select>
+        </div>
+        <div class="form-section">
+            <label>Vertikalwinkel (α)</label>
+            <input type="number" id="lasi-winkel" value="90" oninput="calculateLasi()">
+        </div>
+    </div>
+
+    <div id="lasi-result" class="result-box">
+        Ergebnis: <span id="lasi-needed">0</span> benötigte Spanngurte
+    </div>
+</div>
