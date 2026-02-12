@@ -1,63 +1,35 @@
-<div class="app-viewport">
-    <div class="tactical-frame">
-        <header class="status-header">
-            <div class="indicator"></div>
-            <h1>SYSTEM PKO1 <span class="version">V3.7.3</span></h1>
-        </header>
+<div class="glass-container adr-tool">
+    <header>
+        <div class="badge adr">ADR / SDR CHECK</div>
+        <h1>GEFAHRGUT<span>RECHNER</span></h1>
+        <p>1000-PUNKTE-REGEL & BESTIMMUNGEN</p>
+    </header>
 
-        <div class="truck-grid">
-            <div class="wheel-slot pos-vl">
-                <input type="number" id="vl" placeholder="0">
-                <label>VL</label>
-            </div>
-            <div class="wheel-slot pos-vr">
-                <input type="number" id="vr" placeholder="0">
-                <label>VR</label>
-            </div>
+    <div class="adr-input-section">
+        <div class="input-card main">
+            <label>UN-Nummer</label>
+            <input type="text" id="un-input" placeholder="z.B. 1202" maxlength="4">
+        </div>
+        <div class="input-card main">
+            <label>Menge (kg/L)</label>
+            <input type="number" id="adr-menge" placeholder="0">
+        </div>
+    </div>
 
-            <div class="wheel-slot pos-al">
-                <input type="number" id="al" placeholder="0">
-                <label>AL</label>
+    <div id="adr-result" class="adr-display" style="display: none;">
+        <div class="adr-header">
+            <div id="adr-un-name" class="un-name">UN 1202 DIESELKRAFTSTOFF</div>
+            <div id="adr-class" class="class-badge">KLASSE 3</div>
+        </div>
+        
+        <div class="points-visual">
+            <div class="points-bar">
+                <div id="points-fill" class="fill"></div>
             </div>
-            <div class="wheel-slot pos-ar">
-                <input type="number" id="ar" placeholder="0">
-                <label>AR</label>
-            </div>
-
-            <div class="wheel-slot pos-sl">
-                <input type="number" id="sl" placeholder="0">
-                <label>SL</label>
-            </div>
-            <div class="wheel-slot pos-sr">
-                <input type="number" id="sr" placeholder="0">
-                <label>SR</label>
-            </div>
-
-            <div class="truck-silhouette">
-                <div class="center-line"></div>
-                <div id="cog" class="weight-center"></div>
-            </div>
+            <div class="points-text"><span id="calc-points">0</span> / 1000 PUNKTE</div>
         </div>
 
-        <div class="data-readout">
-            <div class="main-metric">
-                <small>Gesamtmasse</small>
-                <div class="big-value"><span id="total">0</span> <span class="unit">kg</span></div>
+        <div id="adr-warnings" class="warning-list">
             </div>
-            <div class="sub-metrics">
-                <div class="metric-box">
-                    <label>Achse 1</label>
-                    <span id="ax1">0 kg</span>
-                </div>
-                <div class="metric-box">
-                    <label>Achse 2</label>
-                    <span id="ax2">0 kg</span>
-                </div>
-                <div class="metric-box">
-                    <label>Auflieger</label>
-                    <span id="ax3">0 kg</span>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
