@@ -1,55 +1,26 @@
-const inputs = ['vl', 'vr', 'al', 'ar', 'sl', 'sr'];
-inputs.forEach(id => {
-    document.getElementById(id).addEventListener('input', calculateSattelzug);
+const fields = ['vl', 'vr', 'al', 'ar', 'sl', 'sr'];
+fields.forEach(id => {
+    document.getElementById(id).addEventListener('input', calculate);
 });
 
-function calculateSattelzug() {
-    const vl = parseFloat(document.getElementById('vl').value) || 0;
-    const vr = parseFloat(document.getElementById('vr').value) || 0;
-    const al = parseFloat(document.getElementById('al').value) || 0;
-    const ar = parseFloat(document.getElementById('ar').value) || 0;
-    const sl = parseFloat(document.getElementById('sl').value) || 0;
-    const sr = parseFloat(document.getElementById('sr').value) || 0;
+function calculate() {
+    const data = {};
+    fields.forEach(id => data[id] = parseFloat(document.getElementById(id).value) || 0);
 
-    const axle1 = vl + vr;
-    const axle2 = al + ar;
-    const axle3 = sl + sr;
-    
-    const total = axle1 + axle2 + axle3;
-    const leftSide = vl + al + sl;
-    const rightSide = vr + ar + sr;
-    const diff = Math.abs(leftSide - rightSide);
+    const a1 = data.vl + data.vr;
+    const a2 = data.al + data.ar;
+    const a3 = data.sl + data.sr;
+    const total = a1 + a2 + a3;
 
-    // UI Updates
-    document.getElementById('sum-v').innerText = axle1.toLocaleString();
-    document.getElementById('sum-a').innerText = axle2.toLocaleString();
-    document.getElementById('sum-s').innerText = axle3.toLocaleString();
-    document.getElementById('total-weight').innerText = total.toLocaleString() + " kg";
-    document.getElementById('lr-diff').innerText = diff.toLocaleString() + " kg";
+    document.getElementById('total').innerText = total.toLocaleString();
+    document.getElementById('ax1').innerText = a1.toLocaleString() + ' kg';
+    document.getElementById('ax2').innerText = a2.toLocaleString() + ' kg';
+    document.getElementById('ax3').innerText = a3.toLocaleString() + ' kg';
 
-    // Schwerpunkt-Berechnung (COG)
     if (total > 0) {
-        const xPos = (rightSide / total) * 100;
-        // Y-Position gewichtet nach Achsabständen (vereinfacht)
-        const yPos = ((axle2 * 0.4 + axle3 * 0.9) / total) * 100; 
-        
-        const cog = document.getElementById('target-point');
-        cog.style.left = `${xPos}%`;
+        const cog = document.getElementById('cog');
+        // Y-Position des Schwerpunktes basierend auf Lastverteilung
+        const yPos = ((a2 * 0.35 + a3 * 0.85) / total) * 100;
         cog.style.top = `${yPos}%`;
-
-        // Warn-System
-        const status = document.getElementById('status-text');
-        const tile = document.getElementById('status-tile');
-        
-        if (diff > (total * 0.08)) { // 8% Toleranz beim Sattelzug
-            status.innerText = "🚨 SCHIEFLAST";
-            tile.style.color = "#ff4b2b";
-        } else if (total > 40000) { // Beispiel: 40 Tonnen Limit
-            status.innerText = "⚖️ ÜBERLADEN";
-            tile.style.color = "#ff4b2b";
-        } else {
-            status.innerText = "✅ OPTIMAL";
-            tile.style.color = "#00ff87";
-        }
     }
 }
