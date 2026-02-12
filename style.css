@@ -1,36 +1,112 @@
-/* Nutze das CSS aus der vorigen Antwort und füge dies hinzu/ersetze es: */
-
-.measurement-space { gap: 30px; }
-
-.axle-visual.drive {
-    border-left: 2px solid var(--primary);
-    border-right: 2px solid var(--primary);
-    background: rgba(0, 210, 255, 0.05);
+:root {
+    --neon-blue: #00f2ff;
+    --neon-red: #ff0040;
+    --bg-black: #05070a;
 }
 
-.axle-name {
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    opacity: 0.5;
-    margin-bottom: 5px;
+body {
+    background-color: var(--bg-black);
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.truck-chassis-visual {
-    width: 100px;
-    height: 220px;
-    border: 2px solid rgba(255,255,255,0.1);
+.tactical-frame {
+    width: 380px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+}
+
+.truck-grid {
+    height: 450px;
+    position: relative;
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.truck-silhouette {
+    width: 80px;
+    height: 100%;
+    background: #161b22;
+    border: 2px solid #30363d;
     border-radius: 10px;
     position: relative;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.05) 30%, transparent 30%, transparent 70%, rgba(255,255,255,0.05) 70%);
 }
 
-.value.primary {
-    color: var(--primary);
-    font-size: 1.4rem;
-    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+.wheel-slot {
+    position: absolute;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
 }
 
-.input-card:hover {
-    border-color: var(--primary);
-    background: rgba(255,255,255,0.1);
+.wheel-slot input {
+    background: #161b22;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
 }
+
+.wheel-slot input:focus {
+    border-color: var(--neon-blue);
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+/* Positionen der Räder */
+.pos-vl { top: 10px; left: -110px; }
+.pos-vr { top: 10px; right: -110px; }
+.pos-al { top: 140px; left: -110px; }
+.pos-ar { top: 140px; right: -110px; }
+.pos-sl { bottom: 10px; left: -110px; }
+.pos-sr { bottom: 10px; right: -110px; }
+
+.weight-center {
+    width: 20px;
+    height: 20px;
+    background: var(--neon-red);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px var(--neon-red);
+    transition: all 0.3s ease;
+}
+
+.data-readout {
+    background: #161b22;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #30363d;
+}
+
+.big-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--neon-blue);
+}
+
+.sub-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 15px;
+    gap: 10px;
+    border-top: 1px solid #30363d;
+    padding-top: 15px;
+}
+
+.metric-box label { font-size: 0.6rem; text-transform: uppercase; color: #8b949e; }
+.metric-box span { display: block; font-weight: bold; }
