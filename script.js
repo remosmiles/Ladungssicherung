@@ -1,39 +1,49 @@
-function updateTruckAnalysis() {
-    const vl = parseFloat(document.getElementById('val-vl').value) || 0;
-    const vr = parseFloat(document.getElementById('val-vr').value) || 0;
-    const hl = parseFloat(document.getElementById('val-hl').value) || 0;
-    const hr = parseFloat(document.getElementById('val-hr').value) || 0;
+function calculateTruck() {
+    // Werte holen
+    const vl = parseFloat(document.getElementById('v-links').value) || 0;
+    const vr = parseFloat(document.getElementById('v-rechts').value) || 0;
+    const hl = parseFloat(document.getElementById('h-links').value) || 0;
+    const hr = parseFloat(document.getElementById('h-rechts').value) || 0;
 
-    const total = vl + vr + hl + hr;
-    document.getElementById('total-weight').innerText = total;
+    // Berechnungen
+    const axle1 = vl + vr;
+    const axle2 = hl + hr;
+    const total = axle1 + axle2;
+    const leftSide = vl + hl;
+    const rightSide = vr + hr;
 
-    // Schwerpunkt-Verschiebung berechnen
+    // Anzeige aktualisieren
+    document.getElementById('axle-1-total').innerText = axle1;
+    document.getElementById('axle-2-total').innerText = axle2;
+    document.getElementById('total-weight').innerText = total + " kg";
+    
+    // Differenz L/R
+    const diff = Math.abs(leftSide - rightSide);
+    document.getElementById('lr-diff').innerText = diff + " kg";
+
     if (total > 0) {
-        const xShift = ((vr + hr) - (vl + hl)) / total * 100; // Seitlich
-        const yShift = ((hl + hr) - (vl + vr)) / total * 100; // Vorne/Hinten
+        // Prozente berechnen
+        const pLeft = Math.round((leftSide / total) * 100);
+        const pRight = 100 - pLeft;
+        document.getElementById('lr-distribution').innerText = `${pLeft}% / ${pRight}%`;
 
-        const cg = document.getElementById('cg-point');
-        cg.style.left = `calc(50% + ${xShift * 0.4}px)`;
-        cg.style.top = `calc(50% + ${yShift * 0.4}px)`;
+        // Schwerpunkt-Punkt (Visual) verschieben
+        const cog = document.getElementById('cog');
+        const xOffset = (pRight - 50) * 1.5; // Seitliche Verschiebung
+        const yOffset = ((axle2 / total) - 0.5) * 100; // Vorne/Hinten Verschiebung
+        
+        cog.style.transform = `translate(calc(-50% + ${xOffset}px), calc(-50% + ${yOffset}px))`;
 
-        // Warnung bei Schieflage (über 10% Differenz)
-        const diff = Math.abs(((vl + hl) - (vr + hr)) / total * 100);
-        document.getElementById('lr-diff').innerText = diff.toFixed(1);
-
-        const wheels = {
-            'wheel-vl': vl, 'wheel-vr': vr, 
-            'wheel-hl': hl, 'wheel-hr': hr
-        };
-
-        // Durchschnitt berechnen um Ausreisser zu finden
-        const avg = total / 4;
-        for (let id in wheels) {
-            const el = document.getElementById(id);
-            if (wheels[id] > avg * 1.3) { // 30% über Durchschnitt = Rot
-                el.classList.add('danger');
-            } else {
-                el.classList.remove('danger');
-            }
+        // Warn-Logik (wenn Differenz > 10% vom Gesamtgewicht)
+        const status = document.getElementById('global-status');
+        if (diff > (total * 0.1)) {
+            status.innerText = "⚠️ SCHIEFLAST";
+            status.style.background = "#ef4444";
+            document.getElementById('diff-warning').style.color = "#ef4444";
+        } else {
+            status.innerText = "✅ STABIL";
+            status.style.background = "#22c55e";
+            document.getElementById('diff-warning').style.color = "#1e293b";
         }
     }
 }
