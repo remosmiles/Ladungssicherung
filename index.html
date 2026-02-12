@@ -1,25 +1,35 @@
 <div class="card data-section">
-    <h3>📦 Ladungssicherung & Gewichtsverteilung</h3>
-    <div class="lasi-grid">
-        <div class="form-section">
-            <label>Ladungsgewicht (kg)</label>
-            <input type="number" id="lasi-gewicht" placeholder="z.B. 5000" oninput="calculateLasi()">
+    <div class="card-header">
+        <h3>⚖️ Radlast-Analyse (4 Waagtische)</h3>
+        <span class="badge-tech">Präzisionsmodus</span>
+    </div>
+
+    <div class="axle-visual-container">
+        <div class="truck-chassis">
+            <div class="wheel top-left" id="wheel-vl"></div>
+            <div class="wheel top-right" id="wheel-vr"></div>
+            <div class="wheel bottom-left" id="wheel-hl"></div>
+            <div class="wheel bottom-right" id="wheel-hr"></div>
+            <div class="center-point" id="cg-point"></div>
         </div>
-        <div class="form-section">
-            <label>Reibbeiwert (µ)</label>
-            <select id="lasi-reib" onchange="calculateLasi()">
-                <option value="0.3">0.3 (Holz auf Metall)</option>
-                <option value="0.6">0.6 (Antirutschmatte)</option>
-                <option value="0.2">0.2 (Nass / Fettig)</option>
-            </select>
-        </div>
-        <div class="form-section">
-            <label>Vertikalwinkel (α)</label>
-            <input type="number" id="lasi-winkel" value="90" oninput="calculateLasi()">
+
+        <div class="weight-inputs">
+            <div class="input-row">
+                <input type="number" id="val-vl" placeholder="VL (kg)" oninput="updateTruckAnalysis()">
+                <input type="number" id="val-vr" placeholder="VR (kg)" oninput="updateTruckAnalysis()">
+            </div>
+            <div class="input-row">
+                <input type="number" id="val-hl" placeholder="HL (kg)" oninput="updateTruckAnalysis()">
+                <input type="number" id="val-hr" placeholder="HR (kg)" oninput="updateTruckAnalysis()">
+            </div>
         </div>
     </div>
 
-    <div id="lasi-result" class="result-box">
-        Ergebnis: <span id="lasi-needed">0</span> benötigte Spanngurte
+    <div class="analysis-results">
+        <div class="res-item">Gesamtgewicht: <span id="total-weight">0</span> kg</div>
+        <div class="res-item">Differenz L/R: <span id="lr-diff">0</span>%</div>
+        <div id="warning-msg" class="warning-banner" style="display: none;">
+            ⚠️ Achtung: Schwerpunkt kritisch!
+        </div>
     </div>
 </div>
