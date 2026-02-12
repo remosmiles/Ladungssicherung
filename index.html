@@ -1,76 +1,68 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PKO1 | Advanced Axle Control</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="glass-container">
-        <header>
-            <div class="badge">SYSTEM AKTIV</div>
-            <h1>ACHSLAST<span>ANALYSE</span></h1>
-            <p>PRÄZISIONSMESSUNG PKO1</p>
-        </header>
+<div class="glass-container">
+    <header>
+        <div class="badge">HEAVY DUTY MODE</div>
+        <h1>PKO1<span>SATTELZUG</span></h1>
+        <p>ACHSLAST-ANALYSE KOMPLETTZUG</p>
+    </header>
 
-        <main class="measurement-space">
-            <div class="axle-group">
-                <div class="input-card left" data-label="Vorne Links">
-                    <input type="number" id="vl" placeholder="0" class="weight-input">
-                    <span>kg</span>
-                </div>
-                
-                <div class="axle-visual">
-                    <div class="axle-line"></div>
-                    <div class="axle-sum"><span id="sum-v">0</span> kg</div>
-                </div>
+    <main class="measurement-space">
+        <div class="axle-group" data-axle="1">
+            <div class="input-card left" data-label="VL">
+                <input type="number" id="vl" placeholder="0" class="weight-input">
+            </div>
+            <div class="axle-visual">
+                <div class="axle-name">LENKACHSE</div>
+                <div class="axle-sum"><span id="sum-v">0</span> kg</div>
+            </div>
+            <div class="input-card right" data-label="VR">
+                <input type="number" id="vr" placeholder="0" class="weight-input">
+            </div>
+        </div>
 
-                <div class="input-card right" data-label="Vorne Rechts">
-                    <input type="number" id="vr" placeholder="0" class="weight-input">
-                    <span>kg</span>
-                </div>
+        <div class="axle-group" data-axle="2">
+            <div class="input-card left" data-label="AL">
+                <input type="number" id="al" placeholder="0" class="weight-input">
             </div>
+            <div class="axle-visual drive">
+                <div class="axle-name">ANTRIEBSACHSE</div>
+                <div class="axle-sum"><span id="sum-a">0</span> kg</div>
+            </div>
+            <div class="input-card right" data-label="AR">
+                <input type="number" id="ar" placeholder="0" class="weight-input">
+            </div>
+        </div>
 
-            <div class="vehicle-body">
-                <div id="target-point" class="cog-dot"></div>
-                <div class="center-axis"></div>
+        <div class="axle-group" data-axle="3">
+            <div class="input-card left" data-label="SL">
+                <input type="number" id="sl" placeholder="0" class="weight-input">
             </div>
+            <div class="axle-visual trailer">
+                <div class="axle-name">AUFLIEGERACHSEN</div>
+                <div class="axle-sum"><span id="sum-s">0</span> kg</div>
+            </div>
+            <div class="input-card right" data-label="SR">
+                <input type="number" id="sr" placeholder="0" class="weight-input">
+            </div>
+        </div>
 
-            <div class="axle-group">
-                <div class="input-card left" data-label="Hinten Links">
-                    <input type="number" id="hl" placeholder="0" class="weight-input">
-                    <span>kg</span>
-                </div>
-                
-                <div class="axle-visual">
-                    <div class="axle-line"></div>
-                    <div class="axle-sum"><span id="sum-h">0</span> kg</div>
-                </div>
+        <div class="truck-chassis-visual">
+            <div id="target-point" class="cog-dot"></div>
+            <div class="truck-outline"></div>
+        </div>
+    </main>
 
-                <div class="input-card right" data-label="Hinten Rechts">
-                    <input type="number" id="hr" placeholder="0" class="weight-input">
-                    <span>kg</span>
-                </div>
-            </div>
-        </main>
-
-        <footer class="live-dashboard">
-            <div class="data-tile">
-                <label>Gesamtmasse</label>
-                <div class="value" id="total-weight">0 kg</div>
-            </div>
-            <div class="data-tile">
-                <label>Differenz L/R</label>
-                <div class="value" id="lr-diff">0 kg</div>
-            </div>
-            <div class="data-tile" id="balance-tile">
-                <label>Status</label>
-                <div class="value" id="status-text">WAITING</div>
-            </div>
-        </footer>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+    <footer class="live-dashboard">
+        <div class="data-tile">
+            <label>GESAMTGEWICHT</label>
+            <div class="value primary" id="total-weight">0 kg</div>
+        </div>
+        <div class="data-tile">
+            <label>L/R DIFFERENZ</label>
+            <div class="value" id="lr-diff">0 kg</div>
+        </div>
+        <div class="data-tile" id="status-tile">
+            <label>STATUS</label>
+            <div class="value" id="status-text">BEREIT</div>
+        </div>
+    </footer>
+</div>
