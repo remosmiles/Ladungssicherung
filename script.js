@@ -1,26 +1,39 @@
-function calculateLasi() {
-    const gewicht = parseFloat(document.getElementById('lasi-gewicht').value) || 0;
-    const mue = parseFloat(document.getElementById('lasi-reib').value);
-    const alpha = parseFloat(document.getElementById('lasi-winkel').value);
-    const stf = 500; // Standard-Vorspannkraft in daN
+function updateTruckAnalysis() {
+    const vl = parseFloat(document.getElementById('val-vl').value) || 0;
+    const vr = parseFloat(document.getElementById('val-vr').value) || 0;
+    const hl = parseFloat(document.getElementById('val-hl').value) || 0;
+    const hr = parseFloat(document.getElementById('val-hr').value) || 0;
 
-    if (gewicht > 0) {
-        // Formel: n = (G * (0.8 - mue)) / (k * mue * sin(alpha))
-        // Wir nutzen hier eine vereinfachte, sichere Berechnungsmethode
-        const winkelRad = alpha * (Math.PI / 180);
-        const benötigteGurte = Math.ceil((gewicht * (0.8 - mue)) / (1.5 * mue * Math.sin(winkelRad) * stf));
-        
-        const resultText = benötigteGurte > 0 ? Math.max(benötigteGurte, 2) : 0;
-        document.getElementById('lasi-needed').innerText = resultText;
-        
-        // Optisches Feedback
-        const box = document.getElementById('lasi-result');
-        if (resultText > 5) {
-            box.style.backgroundColor = "#fee2e2"; // Rot-Warnung
-            box.style.color = "#b91c1c";
-        } else {
-            box.style.backgroundColor = "#f0fdf4"; // Grün-OK
-            box.style.color = "#15803d";
+    const total = vl + vr + hl + hr;
+    document.getElementById('total-weight').innerText = total;
+
+    // Schwerpunkt-Verschiebung berechnen
+    if (total > 0) {
+        const xShift = ((vr + hr) - (vl + hl)) / total * 100; // Seitlich
+        const yShift = ((hl + hr) - (vl + vr)) / total * 100; // Vorne/Hinten
+
+        const cg = document.getElementById('cg-point');
+        cg.style.left = `calc(50% + ${xShift * 0.4}px)`;
+        cg.style.top = `calc(50% + ${yShift * 0.4}px)`;
+
+        // Warnung bei Schieflage (über 10% Differenz)
+        const diff = Math.abs(((vl + hl) - (vr + hr)) / total * 100);
+        document.getElementById('lr-diff').innerText = diff.toFixed(1);
+
+        const wheels = {
+            'wheel-vl': vl, 'wheel-vr': vr, 
+            'wheel-hl': hl, 'wheel-hr': hr
+        };
+
+        // Durchschnitt berechnen um Ausreisser zu finden
+        const avg = total / 4;
+        for (let id in wheels) {
+            const el = document.getElementById(id);
+            if (wheels[id] > avg * 1.3) { // 30% über Durchschnitt = Rot
+                el.classList.add('danger');
+            } else {
+                el.classList.remove('danger');
+            }
         }
     }
 }
